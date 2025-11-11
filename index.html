@@ -6,12 +6,15 @@
   <title>BENTA — Istanbul</title>
   <style>
     html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
       font-family: 'Times New Roman', Times, serif;
       font-size: 12px;      /* baseline */
       color: #111;
       background-color: #e9e9e9;
       line-height: 1.4;
       min-width: 340px;
+      
     }
 
     body {
@@ -149,7 +152,7 @@
       font-family: 'Times New Roman', Times, serif;
       padding: 4px 8px;
       cursor: pointer;
-      font-size: 10px;
+      font-size: inherit;
     }
     button.filter.active {
       background: #111;
@@ -234,13 +237,35 @@
       color: #666;
     }
 
+    /* --- responsive font + spacing adjustments --- */
     @media (max-width: 800px) {
+      /* font scaling */
       html { font-size: 10px; }  /* down from your default 12px */
+
+      /* label and spacing tweaks */
+      .label {
+        min-width: 90px;       /* was 95px — bring text closer to labels */
+      }
+
+      .row {
+        margin-bottom: 35px;   /* was 40px — tighter section gaps */
+      }
     }
 
     @media (max-width: 600px) {
+      /* font scaling */
       html { font-size: 9px; }
+
+      /* label and spacing tweaks */
+      .label {
+        min-width: 80px;       /* even closer on small screens */
+      }
+
+      .row {
+        margin-bottom: 25px;   /* tighter vertical rhythm */
+      }
     }
+
 
   </style>
 </head>
