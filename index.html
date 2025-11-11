@@ -13,27 +13,6 @@
       color: #111;
       background-color: #e9e9e9;
       line-height: 1.4;
-      min-width: 340px; /* baseline guard for very small phones */
-    }
-
-    /* Main container: fixed layout width to prevent reflow/jump */
-    main {
-      width: 600px;            /* lock layout width */
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      display: none;           /* shown after preloader */
-      box-sizing: border-box;
-    }
-    body.loaded main { display: block; }
-
-    /* Proportional shrink of the entire layout below 900px */
-    @media (max-width: 900px) {
-      html, body { overflow-x: hidden; }
-      main {
-        transform: scale(calc(100vw / 900));
-        transform-origin: top center;
-      }
     }
 
     /* Preloader */
@@ -47,12 +26,30 @@
       align-items: center;
       z-index: 9999;
     }
-    #preloader img { width: 80px; height: auto; }
+    #preloader img {
+      width: 80px;
+      height: auto;
+    }
     body.loaded #preloader { display: none; }
 
-    /* Links always black */
-    a, a:visited, a:active { color: #000; text-decoration: none; }
-    a:hover { color: #000; text-decoration: underline; }
+    /* Keep all links black */
+    a, a:visited, a:active {
+      color: #000;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    /* Main container centered on page */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      display: none;
+    }
+    body.loaded main { display: block; }
 
     h1, h2, h3, h4, h5, h6 {
       font-size: 12px;
@@ -60,10 +57,18 @@
       margin: 0 0 8px 0;
     }
 
-    ::selection { background: rgb(255, 0, 230); color: #000; }
-    ::-moz-selection { background: rgb(255, 0, 230); color: #000; }
+    ::selection {
+      background: rgb(255, 0, 230);     /* highlight color */
+      color: #000;          /* text color while highlighted */
+    }
 
-    /* Header and logo */
+    /* Safari compatibility */
+    ::-moz-selection {
+      background: rgb(255, 0, 230);
+      color: #000;
+    }
+
+    /* Header and logo centering */
     header {
       width: 100%;
       display: flex;
@@ -76,24 +81,38 @@
       margin: 10px 0 30px 0;
     }
 
-    /* Contact table (two-column) */
-    .contact-table { display: flex; flex-direction: column; gap: 1px; }
+
+    .contact-table {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
     .contact-table .row-line {
       display: grid;
-      grid-template-columns: 55px auto;
+      grid-template-columns: 55px auto; /* left = label column, right = value column */
       align-items: start;
-      column-gap: 10px;
+      column-gap: 10px;                 /* space between label and value */
     }
-    .contact-table .left { font-weight: bold; }
-    .contact-table a { color: #000; text-decoration: none; }
-    .contact-table a:hover { text-decoration: underline; }
 
-    /* Section rows (label + content) — prevent wrapping/jump */
+    .contact-table .left {
+      font-weight: bold;
+    }
+
+    .contact-table a {
+      color: #000;
+      text-decoration: none;
+    }
+    .contact-table a:hover {
+      text-decoration: underline;
+    }
+
+    /* Row layout for section labels and content */
     .row {
       display: flex;
       align-items: baseline;
       gap: 0px;
-      flex-wrap: nowrap;   /* <-- never wrap: keeps content from dropping under label */
+      flex-wrap: wrap;
       margin-bottom: 40px;
     }
     .label {
@@ -101,13 +120,10 @@
       font-size: 12px;
       font-weight: bold;
       text-transform: uppercase;
-      flex-shrink: 0;      /* don't shrink the label */
     }
     .content {
       flex: 1;
       max-width: 900px;
-      min-width: 0;        /* prevents flex overflow causing reflow */
-      flex-shrink: 0;      /* keep on same line; layout is scaled instead of wrapping */
     }
 
     /* Filters */
@@ -121,9 +137,9 @@
     button.filter {
       background: transparent;
       border: 1px solid #000;
-      color: #000;
-      -webkit-appearance: none;
-      appearance: none;
+      color: #000;                /* force text color black */
+      -webkit-appearance: none;   /* remove iOS default button style */
+      appearance: none;           /* remove system style (cross-browser) */
       font-family: 'Times New Roman', Times, serif;
       padding: 4px 8px;
       cursor: pointer;
@@ -134,9 +150,17 @@
       color: #cbcbcb;
     }
 
+
     /* Archive items */
-    .archive-list { display: flex; flex-direction: column; gap: 8px; }
-    details { border: none; background: transparent; }
+    .archive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    details {
+      border: none;
+      background: transparent;
+    }
     summary {
       cursor: pointer;
       font-weight: normal;
@@ -144,16 +168,12 @@
       justify-content: space-between;
       align-items: baseline;
       list-style: none;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     summary::-webkit-details-marker { display: none; }
     summary .date {
       margin-left: auto;
       text-align: right;
       min-width: 180px;
-      flex-shrink: 0;
     }
     .note {
       white-space: pre-wrap;
@@ -162,31 +182,42 @@
       border-left: 1px solid #000000;
     }
 
-    /* Newsletter form */
-    #subscribe form {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    #subscribe input[type="email"],
-    #subscribe button {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 11px;
-      padding: 3px 8px;
-      border: 1px solid #000;
-      line-height: 1;
-      height: 22px;
-      box-sizing: border-box;
-      background-color: inherit;
-      color: inherit;
-      appearance: none;
-    }
-    #subscribe input[type="email"]:focus { outline: none; border: 1px solid #111; }
-    #subscribe button:hover { background-color: rgba(0,0,0,0.05); }
+#subscribe form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    footer { margin-top: 60px; color: #666; }
+#subscribe input[type="email"],
+#subscribe button {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 11px;
+  padding: 3px 8px;
+  border: 1px solid #000;
+  line-height: 1;
+  height: 22px;
+  box-sizing: border-box;
+  background-color: inherit;  /* match parent background */
+  color: inherit;             /* match text color */
+  appearance: none;           /* remove default browser style */
+}
+
+#subscribe input[type="email"]:focus {
+  outline: none;
+  border: 1px solid #111;
+}
+
+/* Optional hover styling */
+#subscribe button:hover {
+  background-color: rgba(0,0,0,0.05); /* subtle highlight */
+}
+
+    footer {
+      margin-top: 60px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -268,7 +299,6 @@
 
           <details data-type="exhibition"><summary><span><strong>STARFISH DECAY</strong> by <strong>BORA AKINCITÜRK</strong></span><span class="date"><strong>Sep 19 - Nov 14, 2025</strong></span></summary><div class="note">Bora Akıncıtürk presents a new body of work revolving around a recent reproduction of a “lost” (stolen?) painting he made during a residency in Prague in 2018. The painting is accompanied by a group of objects that Akıncıtürk and some of his friends have come across—sometimes found, sometimes obtained very cheaply, or without permission. Starfish Decay draws on personal stories to explore notions of possession, appropriation, occupation and reconstruction. Known for employing multiple stylistic approaches in his work, Akıncıtürk continues his exploration of the modern individual and the burdens of navigating life in an era of constant online interaction.<br><br>Graphic Design by Berk Çakmakçı<br>Text by Mehmet Ekinci<br>Photographed by Barış Özçetin </div></details>
         </div>
-
       </div>
     </section>
 
