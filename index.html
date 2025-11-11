@@ -167,6 +167,7 @@
       border: none;
       background: transparent;
     }
+    
     summary {
       display: flex;
       justify-content: space-between;
@@ -174,21 +175,24 @@
       list-style: none;
       overflow: hidden;
     }
-    summary::-webkit-details-marker { display: none; }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
 
     summary span:first-child {
       flex: 1 1 auto;      /* title takes remaining space */
       min-width: 0;        /* allow it to shrink before wrapping */
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap; /* keeps title on one line */
+      white-space: nowrap; /* keep title on one line */
+      overflow: hidden;    /* prevent layout shift */
     }
 
     summary .date {
-      flex: 0 0 180px;     /* fixed column for the date */
+      flex: 0 0 180px;     /* fixed width for date column */
       text-align: right;
       white-space: nowrap; /* keep date in one line */
     }
+
     .note {
       white-space: pre-wrap;
       margin: 6px 0 10px 0;
