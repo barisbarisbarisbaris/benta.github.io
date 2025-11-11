@@ -168,18 +168,26 @@
       background: transparent;
     }
     summary {
-      cursor: pointer;
-      font-weight: normal;
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       list-style: none;
+      overflow: hidden;
     }
     summary::-webkit-details-marker { display: none; }
+
+    summary span:first-child {
+      flex: 1 1 auto;      /* title takes remaining space */
+      min-width: 0;        /* allow it to shrink before wrapping */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; /* keeps title on one line */
+    }
+
     summary .date {
-      margin-left: auto;
+      flex: 0 0 180px;     /* fixed column for the date */
       text-align: right;
-      min-width: 180px;
+      white-space: nowrap; /* keep date in one line */
     }
     .note {
       white-space: pre-wrap;
