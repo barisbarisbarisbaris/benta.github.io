@@ -13,34 +13,26 @@
       color: #111;
       background-color: #e9e9e9;
       line-height: 1.4;
-      min-width: 340px; /* prevents too much squeezing on phones */
+      min-width: 340px; /* baseline guard for very small phones */
     }
 
-    /* Prevent layout from collapsing too tightly on small screens */
+    /* Main container: fixed layout width to prevent reflow/jump */
     main {
-      max-width: 900px;
-      width: 90%;
+      width: 600px;            /* lock layout width */
+      max-width: 600px;
       margin: 0 auto;
       padding: 20px;
-      display: none;
+      display: none;           /* shown after preloader */
       box-sizing: border-box;
     }
-
     body.loaded main { display: block; }
 
-    @media (max-width: 600px) {
-      .row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
-
-      .label {
-        min-width: auto;
-      }
-
-      summary {
-        white-space: normal;
+    /* Proportional shrink of the entire layout below 900px */
+    @media (max-width: 900px) {
+      html, body { overflow-x: hidden; }
+      main {
+        transform: scale(calc(100vw / 900));
+        transform-origin: top center;
       }
     }
 
@@ -55,21 +47,12 @@
       align-items: center;
       z-index: 9999;
     }
-    #preloader img {
-      width: 80px;
-      height: auto;
-    }
+    #preloader img { width: 80px; height: auto; }
     body.loaded #preloader { display: none; }
 
-    /* Keep all links black */
-    a, a:visited, a:active {
-      color: #000;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #000;
-      text-decoration: underline;
-    }
+    /* Links always black */
+    a, a:visited, a:active { color: #000; text-decoration: none; }
+    a:hover { color: #000; text-decoration: underline; }
 
     h1, h2, h3, h4, h5, h6 {
       font-size: 12px;
@@ -77,16 +60,10 @@
       margin: 0 0 8px 0;
     }
 
-    ::selection {
-      background: rgb(255, 0, 230);
-      color: #000;
-    }
-    ::-moz-selection {
-      background: rgb(255, 0, 230);
-      color: #000;
-    }
+    ::selection { background: rgb(255, 0, 230); color: #000; }
+    ::-moz-selection { background: rgb(255, 0, 230); color: #000; }
 
-    /* Header and logo centering */
+    /* Header and logo */
     header {
       width: 100%;
       display: flex;
@@ -99,34 +76,24 @@
       margin: 10px 0 30px 0;
     }
 
-    .contact-table {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
+    /* Contact table (two-column) */
+    .contact-table { display: flex; flex-direction: column; gap: 1px; }
     .contact-table .row-line {
       display: grid;
       grid-template-columns: 55px auto;
       align-items: start;
       column-gap: 10px;
     }
-    .contact-table .left {
-      font-weight: bold;
-    }
-    .contact-table a {
-      color: #000;
-      text-decoration: none;
-    }
-    .contact-table a:hover {
-      text-decoration: underline;
-    }
+    .contact-table .left { font-weight: bold; }
+    .contact-table a { color: #000; text-decoration: none; }
+    .contact-table a:hover { text-decoration: underline; }
 
-    /* Row layout for section labels and content */
+    /* Section rows (label + content) — prevent wrapping/jump */
     .row {
       display: flex;
       align-items: baseline;
       gap: 0px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;   /* <-- never wrap: keeps content from dropping under label */
       margin-bottom: 40px;
     }
     .label {
@@ -134,10 +101,13 @@
       font-size: 12px;
       font-weight: bold;
       text-transform: uppercase;
+      flex-shrink: 0;      /* don't shrink the label */
     }
     .content {
       flex: 1;
       max-width: 900px;
+      min-width: 0;        /* prevents flex overflow causing reflow */
+      flex-shrink: 0;      /* keep on same line; layout is scaled instead of wrapping */
     }
 
     /* Filters */
@@ -165,15 +135,8 @@
     }
 
     /* Archive items */
-    .archive-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    details {
-      border: none;
-      background: transparent;
-    }
+    .archive-list { display: flex; flex-direction: column; gap: 8px; }
+    details { border: none; background: transparent; }
     summary {
       cursor: pointer;
       font-weight: normal;
@@ -190,6 +153,7 @@
       margin-left: auto;
       text-align: right;
       min-width: 180px;
+      flex-shrink: 0;
     }
     .note {
       white-space: pre-wrap;
@@ -198,6 +162,7 @@
       border-left: 1px solid #000000;
     }
 
+    /* Newsletter form */
     #subscribe form {
       display: flex;
       align-items: center;
@@ -205,7 +170,6 @@
       gap: 10px;
       flex-wrap: wrap;
     }
-
     #subscribe input[type="email"],
     #subscribe button {
       font-family: 'Times New Roman', Times, serif;
@@ -219,18 +183,10 @@
       color: inherit;
       appearance: none;
     }
-    #subscribe input[type="email"]:focus {
-      outline: none;
-      border: 1px solid #111;
-    }
-    #subscribe button:hover {
-      background-color: rgba(0,0,0,0.05);
-    }
+    #subscribe input[type="email"]:focus { outline: none; border: 1px solid #111; }
+    #subscribe button:hover { background-color: rgba(0,0,0,0.05); }
 
-    footer {
-      margin-top: 60px;
-      color: #666;
-    }
+    footer { margin-top: 60px; color: #666; }
   </style>
 </head>
 <body>
@@ -282,10 +238,6 @@
           <button class="filter" data-type="exhibition">Exhibitions</button>
           <button class="filter" data-type="performance">Performances</button>
         </div>
-
-        <!-- existing archive content unchanged -->
-
-
 
         <div class="archive-list">
           <details data-type="screening"><summary><span><strong>BENTA SEP 24 ANIMATION SCREENING</strong></span><span class="date"><strong>Sep 20 - 22, 2024</strong></span></summary><div class="note">Curated by Barış Çavuşoğlu<br><br>Featured works by:<br>Balfua<br>Cheng Hsu Chung<br>Arius Zihaee<br>Gabriel Gabriel Garble<br>Paul Plane<br>Lukas Anderson<br>Alex Louvenaz<br>Carter Amelia Davis<br>Sabrina Ratte<br>Amanda Bonaiuto<br>Georgia Reid & Josh Cloud<br>Mark Prendergast</div></details>
