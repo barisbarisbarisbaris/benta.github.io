@@ -173,24 +173,21 @@
       justify-content: space-between;
       align-items: baseline;
       list-style: none;
-      overflow: hidden;
+      overflow: visible;           /* allow full text width */
     }
-
     summary::-webkit-details-marker {
       display: none;
     }
-
     summary span:first-child {
-      flex: 1 1 auto;      /* title takes remaining space */
-      min-width: 0;        /* allow it to shrink before wrapping */
-      white-space: nowrap; /* keep title on one line */
-      overflow: hidden;    /* prevent layout shift */
+      flex: 1 1 auto;              /* title takes remaining space */
+      min-width: 0;                /* allow it to shrink before wrapping */
+      white-space: nowrap;         /* keep title on one line */
+      overflow: visible;           /* no hidden cut-offs */
     }
-
     summary .date {
-      flex: 0 0 180px;     /* fixed width for date column */
+      flex: 0 0 180px;             /* fixed width for date column */
       text-align: right;
-      white-space: nowrap; /* keep date in one line */
+      white-space: nowrap;         /* keep date in one line */
     }
 
     .note {
