@@ -13,6 +13,35 @@
       color: #111;
       background-color: #e9e9e9;
       line-height: 1.4;
+      min-width: 340px; /* prevents too much squeezing on phones */
+    }
+
+    /* Prevent layout from collapsing too tightly on small screens */
+    main {
+      max-width: 900px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 20px;
+      display: none;
+      box-sizing: border-box;
+    }
+
+    body.loaded main { display: block; }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .label {
+        min-width: auto;
+      }
+
+      summary {
+        white-space: normal;
+      }
     }
 
     /* Preloader */
@@ -42,15 +71,6 @@
       text-decoration: underline;
     }
 
-    /* Main container centered on page */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-      display: none;
-    }
-    body.loaded main { display: block; }
-
     h1, h2, h3, h4, h5, h6 {
       font-size: 12px;
       font-weight: bold;
@@ -58,11 +78,9 @@
     }
 
     ::selection {
-      background: rgb(255, 0, 230);     /* highlight color */
-      color: #000;          /* text color while highlighted */
+      background: rgb(255, 0, 230);
+      color: #000;
     }
-
-    /* Safari compatibility */
     ::-moz-selection {
       background: rgb(255, 0, 230);
       color: #000;
@@ -81,24 +99,20 @@
       margin: 10px 0 30px 0;
     }
 
-
     .contact-table {
       display: flex;
       flex-direction: column;
       gap: 1px;
     }
-
     .contact-table .row-line {
       display: grid;
-      grid-template-columns: 55px auto; /* left = label column, right = value column */
+      grid-template-columns: 55px auto;
       align-items: start;
-      column-gap: 10px;                 /* space between label and value */
+      column-gap: 10px;
     }
-
     .contact-table .left {
       font-weight: bold;
     }
-
     .contact-table a {
       color: #000;
       text-decoration: none;
@@ -137,9 +151,9 @@
     button.filter {
       background: transparent;
       border: 1px solid #000;
-      color: #000;                /* force text color black */
-      -webkit-appearance: none;   /* remove iOS default button style */
-      appearance: none;           /* remove system style (cross-browser) */
+      color: #000;
+      -webkit-appearance: none;
+      appearance: none;
       font-family: 'Times New Roman', Times, serif;
       padding: 4px 8px;
       cursor: pointer;
@@ -149,7 +163,6 @@
       background: #111;
       color: #cbcbcb;
     }
-
 
     /* Archive items */
     .archive-list {
@@ -168,6 +181,9 @@
       justify-content: space-between;
       align-items: baseline;
       list-style: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     summary::-webkit-details-marker { display: none; }
     summary .date {
@@ -182,37 +198,34 @@
       border-left: 1px solid #000000;
     }
 
-#subscribe form {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+    #subscribe form {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-#subscribe input[type="email"],
-#subscribe button {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 11px;
-  padding: 3px 8px;
-  border: 1px solid #000;
-  line-height: 1;
-  height: 22px;
-  box-sizing: border-box;
-  background-color: inherit;  /* match parent background */
-  color: inherit;             /* match text color */
-  appearance: none;           /* remove default browser style */
-}
-
-#subscribe input[type="email"]:focus {
-  outline: none;
-  border: 1px solid #111;
-}
-
-/* Optional hover styling */
-#subscribe button:hover {
-  background-color: rgba(0,0,0,0.05); /* subtle highlight */
-}
+    #subscribe input[type="email"],
+    #subscribe button {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 11px;
+      padding: 3px 8px;
+      border: 1px solid #000;
+      line-height: 1;
+      height: 22px;
+      box-sizing: border-box;
+      background-color: inherit;
+      color: inherit;
+      appearance: none;
+    }
+    #subscribe input[type="email"]:focus {
+      outline: none;
+      border: 1px solid #111;
+    }
+    #subscribe button:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
 
     footer {
       margin-top: 60px;
@@ -270,6 +283,10 @@
           <button class="filter" data-type="performance">Performances</button>
         </div>
 
+        <!-- existing archive content unchanged -->
+
+
+
         <div class="archive-list">
           <details data-type="screening"><summary><span><strong>BENTA SEP 24 ANIMATION SCREENING</strong></span><span class="date"><strong>Sep 20 - 22, 2024</strong></span></summary><div class="note">Curated by Barış Çavuşoğlu<br><br>Featured works by:<br>Balfua<br>Cheng Hsu Chung<br>Arius Zihaee<br>Gabriel Gabriel Garble<br>Paul Plane<br>Lukas Anderson<br>Alex Louvenaz<br>Carter Amelia Davis<br>Sabrina Ratte<br>Amanda Bonaiuto<br>Georgia Reid & Josh Cloud<br>Mark Prendergast</div></details>
 
@@ -299,6 +316,7 @@
 
           <details data-type="exhibition"><summary><span><strong>STARFISH DECAY</strong> by <strong>BORA AKINCITÜRK</strong></span><span class="date"><strong>Sep 19 - Nov 14, 2025</strong></span></summary><div class="note">Bora Akıncıtürk presents a new body of work revolving around a recent reproduction of a “lost” (stolen?) painting he made during a residency in Prague in 2018. The painting is accompanied by a group of objects that Akıncıtürk and some of his friends have come across—sometimes found, sometimes obtained very cheaply, or without permission. Starfish Decay draws on personal stories to explore notions of possession, appropriation, occupation and reconstruction. Known for employing multiple stylistic approaches in his work, Akıncıtürk continues his exploration of the modern individual and the burdens of navigating life in an era of constant online interaction.<br><br>Graphic Design by Berk Çakmakçı<br>Text by Mehmet Ekinci<br>Photographed by Barış Özçetin </div></details>
         </div>
+
       </div>
     </section>
 
