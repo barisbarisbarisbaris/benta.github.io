@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BENTA — Istanbul</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12px;
+      color: #111;
+      background-color: #e9e9e9;
+      line-height: 1.4;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #preloader img {
+      width: 80px;
+      height: auto;
+    }
+    body.loaded #preloader { display: none; }
+
+    /* Keep all links black */
+    a, a:visited, a:active {
+      color: #000;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    /* Main container centered on page */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      display: none;
+    }
+    body.loaded main { display: block; }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 10px;
+      font-weight: bold;
+      margin: 0 0 8px 0;
+    }
+
+    ::selection {
+      background: rgb(255, 0, 230);     /* highlight color */
+      color: #000;          /* text color while highlighted */
+    }
+
+    /* Safari compatibility */
+    ::-moz-selection {
+      background: rgb(255, 0, 230);
+      color: #000;
+    }
+
+    /* Header and logo centering */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    header img.logo {
+      width: 260px;
+      height: auto;
+      display: block;
+      margin: 10px 0 30px 0;
+    }
+
+
+    .contact-table {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .contact-table .row-line {
+      display: grid;
+      grid-template-columns: 55px auto; /* left = label column, right = value column */
+      align-items: start;
+      column-gap: 10px;                 /* space between label and value */
+    }
+
+    .contact-table .left {
+      font-weight: bold;
+    }
+
+    .contact-table a {
+      color: #000;
+      text-decoration: none;
+    }
+    .contact-table a:hover {
+      text-decoration: underline;
+    }
+
+    /* Row layout for section labels and content */
+    .row {
+      display: flex;
+      align-items: baseline;
+      gap: 0px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .label {
+      min-width: 110px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .content {
+      flex: 1;
+      max-width: 900px;
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    button.filter {
+      background: transparent;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+    button.filter.active {
+      background: #111;
+      color: #cbcbcb;
+    }
+
+
+    /* Archive items */
+    .archive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    details {
+      border: none;
+      background: transparent;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: normal;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary .date {
+      margin-left: auto;
+      text-align: right;
+      min-width: 180px;
+    }
+    .note {
+      white-space: pre-wrap;
+      margin: 6px 0 10px 0;
+      padding-left: 10px;
+      border-left: 1px solid #000000;
+    }
+
+#subscribe form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#subscribe input[type="email"],
+#subscribe button {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12px;
+  padding: 3px 8px;
+  border: 1px solid #000;
+  line-height: 1;
+  height: 22px;
+  box-sizing: border-box;
+  background-color: inherit;  /* match parent background */
+  color: inherit;             /* match text color */
+  appearance: none;           /* remove default browser style */
+}
+
+#subscribe input[type="email"]:focus {
+  outline: none;
+  border: 1px solid #111;
+}
+
+/* Optional hover styling */
+#subscribe button:hover {
+  background-color: rgba(0,0,0,0.05); /* subtle highlight */
+}
+
+    footer {
+      margin-top: 60px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader">
+    <img src="benta-logo.png" alt="BENTA Logo">
+  </div>
+
+  <main>
+    <header>
+      <img src="media/benta-logo.png" alt="BENTA Logo" class="logo">
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="row">
+      <div class="label">About</div>
+      <div class="content">
+        <strong>BENTA</strong> is a 35 m² independent venue dedicated to visual arts, located in Istanbul.
+        Opened in September 2024, it serves as a platform for artists to present their work, with a focus
+        on experimental film, performance and visual arts.
+      </div>
+    </section>
+
+    <!-- CURRENT -->
+    <section id="current" class="row">
+      <div class="label">Current</div>
+      <div class="content">
+        <strong>STARFISH DECAY</strong> by <strong>BORA AKINCITÜRK</strong><br>
+        <strong>Dates:</strong> September 19 – November 14, 2025<br>
+        <strong>Hours:</strong> Monday to Saturday, 10:00 – 18:00
+      </div>
+    </section>
+
+    <!-- UPCOMING -->
+    <section id="upcoming" class="row">
+      <div class="label">Upcoming</div>
+      <div class="content">
+        <strong>ARZ EDERİM</strong> by <strong>DENİZ KULAKSIZOĞLU</strong><br>
+        <strong>Dates:</strong> TBA
+      </div>
+    </section>
+
+    <!-- ARCHIVE -->
+    <section id="archive" class="row">
+      <div class="label">Archive</div>
+      <div class="content">
+        <div class="filters">
+          <button class="filter active" data-type="all">All</button>
+          <button class="filter" data-type="screening">Screenings</button>
+          <button class="filter" data-type="exhibition">Exhibitions</button>
+          <button class="filter" data-type="performance">Performances</button>
+        </div>
+
+        <div class="archive-list">
+          <details data-type="screening"><summary><span><strong>BENTA SEPTEMBER 2024 ANIMATION SCREENING</strong></span><span class="date"><strong>September 20 - 22, 2024</strong></span></summary><div class="note">Curated by Barış Çavuşoğlu<br><br>Featured works by:<br>Balfua<br>Cheng Hsu Chung<br>Arius Zihaee<br>Gabriel Gabriel Garble<br>Paul Plane<br>Lukas Anderson<br>Alex Louvenaz<br>Carter Amelia Davis<br>Sabrina Ratte<br>Amanda Bonaiuto<br>Georgia Reid & Josh Cloud<br>Mark Prendergast</div></details>
+
+          <details data-type="screening"><summary><span><strong>DEBT QUEST</strong></span><span class="date"><strong>October 18 & 19, 2024</strong></span></summary><div class="note">Hosted by Hellavision Television Network<br><br>DEBT QUEST is an animated action-adventure RPG created by Lije Morgan. It is a hybrid Story/Open Call episode of Hellavision Television, featuring contributions from many animators.</div></details>
+
+          <details data-type="screening"><summary><span><strong>THE SHIVERING TRUTH</strong></span><span class="date"><strong>December 20 & 21, 2024</strong></span></summary><div class="note">THE SHIVERING TRUTH is a stop-motion animated sci-fi horror comedy television series created by Vernon Chatman and directed by both Chatman and Cat Solen. It premiered on Adult Swim in 2018 and ran for two seasons until 2020. Including the pilot episode,the series consists of 13 episodes, each with a runtime of approximately 10 minutes.</div></details>
+
+          <details data-type="screening"><summary><span><strong>DEEPLY PERSONAL PIZZA</strong></span><span class="date"><strong>February 15, 2025</strong></span></summary><div class="note">Co-curated by Griffin Conner & Noah Grossman<br><br>Featured works by:<br>Griffin Conner<br>Barış Çavuşoğlu<br>Ericka Beckman<br>Patrick Faulkner<br>Shana Moulton<br>Keith Rankin<br>Daisy Patricia Mairead Gallaher<br>Walkedoutneimans<br>David Cardoza<br>Hank Allen<br>Margaret Chardiet<br>Max Rooney<br>Willam Banks<br>Funnypat<br>Evan Alpert<br>Yabancı</div></details>
+
+          <details data-type="exhibition"><summary><span><strong>SMOKE IT</strong> by <strong>SASHA YAKUTINA</strong></span><span class="date"><strong>February 20 – March 20, 2025</strong></span></summary><div class="note">"Smoke it" by Sasha Yakutina immerses the viewer in a world where digital art, sculpture, and installations intersect. The theme of the exhibition refers to phenomena such as merchandising, consumerism, and artifacts that resemble objects forgotten on the street. Sasha Yakutina's works manipulate the viewer's attention, playing with optics and perception, where the main method of self-expression becomes the effect itself.<br><br>Photographed by Emirkan Cörüt<br>Text by Sasha Yazov</div></details>
+
+          <details data-type="performance"><summary><span><strong>DESBRIDAR</strong> by <strong>POST-ORGANIC BAUPLAN</strong></span><span class="date"><strong>April 10 & 12, 2025</strong></span></summary><div class="note">Desbridar is a duo piece with two performers interacting alongside with robotic prosthesis, exploring and exhausting the possibilities of that long term interaction. The term Desbridar (in English “debride”) comes from a surgical exfoliation process for the removal of dead, damaged or infected tissue in order to improve the healing of the remaining tissue.<br><br>Direction & performance: Post-Organic Bauplan, Josefina Maro & Salvador Marino<br>Choreography: Josefina Maro<br>Development of robotic prostheses: Salvador Marino<br>Music composition & performance: Oliver Torr<br>Design and lights operation: Kevin Koen<br>Costume: Victor Clavelly<br></div></details>
+
+          <details data-type="screening"><summary><span><strong>BENTA OPEN-AIR FILM SCREENING No:1</strong></span><span class="date"><strong>May 21, 2025</strong></span></summary></details>
+
+          <details data-type="screening"><summary><span><strong>BENTA OPEN-AIR FILM SCREENING No:2</strong></span><span class="date"><strong>June 17, 2025</strong></span></summary><div class="note">Curated by Phoebe Jane Hart<br><br>Featured works by:<br>Nicolas Snyder<br>Phoebe Jane Hart<br>Tom CJ Brown<br>Maks Rzontkowski<br>Kerstin Zemp<br>Bianca Caderas<br>Calleen Koh Yee Lin</div></details>
+
+          <details data-type="screening"><summary><span><strong>UNFORESEEN CONSTELLATIONS</strong></span><span class="date"><strong>June 26, 2025</strong></span></summary><div class="note">Curated by Jonah Primiano<br><br>The films in this program span a half century and many disparate styles, but when viewed through the telescope of the present their similarities form a constellation of techniques. These films are active archives vibrating collaged images to produce unexpected meaning. Their universes of collected media unique to each author speaks to the production of identity, practice of memory, and experience of culture in the image landscapes of the late 20th and early 21st centuries.<br><br>Featured works by:<br>Kara Gut<br>Paul Glabicki<br>Mengxi Yang<br>Frank & Caroline Mouris<br>David De La Fuente<br>Holly & Mat Herndon<br>Mary Beams<br>Cauleen Smith<br>Annapurna Kumar<br>Robert Breer<br>Jackie Turpin</div></details>
+
+          <details data-type="exhibition"><summary><span><strong>evim yuva</strong> by <strong>BARIŞ ÇAVUŞOĞLU</strong></span><span class="date"><strong>April 25 – July 1, 2025</strong></span></summary><div class="note">In ‘evim yuva’, an exhibition by artist Barış Çavuşoğlu, the home is a place of protection and refuge. Inspired by his childhood home, which Çavuşoğlu compares to a well-oiled machine, the exhibition consists of two central sculptures that borrow from the visual language of industrial design to reimagine the domestic sphere as a well-structured and self-regulated ecosystem, where everything functions as it should.<br><br>Curated by Serra Duran Paralı<br>Text by Günseli Yalçınkaya<br>Photographed by Barış Özçetin</div></details>
+
+          <details data-type="screening"><summary><span><strong>Ano Ne… (あのね、、)</strong></span><span class="date"><strong>August 6, 2025</strong></span></summary><div class="note">Curated by Çağıl Harmandar<br><br>Ano Ne… is a screening of short animation films from Japan, curated by Çağıl Harmandar. These films draw inspiration from the artists’ daily lives, dreams, myths and folklore. Employing a variety of techniques, including stop motion, digital animation, pixellation, hand-drawn animation on paper, and cyanotypes. The program offers a glimpse into the inner worlds of independent animators working in Japan.<br><br>Featured works by:<br>Koji Yamamura<br>Shinobu Soejima<br>Asaki Nishino<br>Amane Oda<br>Zehao Li<br>Çağıl Harmandar<br>Takashi Ito<br>Saki Muramoto</div></details>
+
+          <details data-type="screening"><summary><span><strong>as long as possible</strong></span><span class="date"><strong>August 15, 2025</strong></span></summary><div class="note">Curated by Ela Kazdal<br><br>'as long as possible' is a screening offering varying perspectives on life and labour in the Anthropocene epoch. Set across different timelines and aesthetics, the films unravel contemporary anxieties, a soft spot for efficiency, and optimistic nihilism coupled with carcinogens.<br><br>Featured works by:<br>Demon Lovers Inc.<br>Pedro Gossler<br>Chino Moya</div></details>
+
+          <details data-type="performance"><summary><span><strong>MOONLIGHT FUEL</strong> by <strong>STAR & STAN</strong></span><span class="date"><strong>September 27, 2025</strong></span></summary><div class="note">Star & Stan is a performance duo from artists, Kate Williams and Reed Rushes. Focused on issues of gender and sexuality Williams and Rushes perform as a fantasy couple; the heterosexual, his and her, power couple, Star & Stan.<br><br>Star, played by Williams, wears faux-geisha makeup combined with the fashion of white upper class American women inspired by William’s suburban home town. As Stan, Rushes, is a high powered business man, painted silver with assless trousers. Described as “something people have never seen before”( Elephant Magazine) the pair unpack structures of power, labor, gender and capital through the mechanism of gay shame. <br><br>They mix the perverse and the absurd with pop culture and Americana tropes creating surreal wild shows that merge “lovemaking and conflict” (Paper Magazine), “passion and aggression” (Brooklyn Rail). The high glamour, grotesque, fame hungry fantasy world of Star & Stan leaves audiences with the sensation that they’ve done “poppers in a bathtub full of money” (audience member).</div></details>
+
+          <details data-type="exhibition"><summary><span><strong>STARFISH DECAY</strong> by <strong>BORA AKINCITÜRK</strong></span><span class="date"><strong>September 19 – November 14, 2025</strong></span></summary><div class="note">Bora Akıncıtürk presents a new body of work revolving around a recent reproduction of a “lost” (stolen?) painting he made during a residency in Prague in 2018. The painting is accompanied by a group of objects that Akıncıtürk and some of his friends have come across—sometimes found, sometimes obtained very cheaply, or without permission. Starfish Decay draws on personal stories to explore notions of possession, appropriation, occupation and reconstruction. Known for employing multiple stylistic approaches in his work, Akıncıtürk continues his exploration of the modern individual and the burdens of navigating life in an era of constant online interaction.<br><br>Graphic Design by Berk Çakmakçı<br>Text by Mehmet Ekinci<br>Photographed by Barış Özçetin </div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="row">
+      <div class="label">Contact</div>
+      <div class="content contact-table">
+        <div class="row-line">
+          <div class="left">Address:</div>
+          <div class="right">İMÇ, BLOCK 5, No: 5561, Hacı Kadın Mahallesi, Atatürk Bulvarı, Fatih, ISTANBUL, Post Code: 34080</div>
+        </div>
+        <div class="row-line">
+          <div class="left">Email:</div>
+          <div class="right"><a href="mailto:benta5561@gmail.com">benta5561@gmail.com</a></div>
+        </div>
+        <div class="row-line">
+          <div class="left">Instagram:</div>
+          <div class="right"><a href="https://www.instagram.com/benta__________" target="_blank">@benta________</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAILING LIST -->
+    <section id="subscribe" class="row">
+      <div class="label">Newsletter</div>
+      <form class="content" action="https://formspree.io/f/xjkjvogo" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <footer>© 2025 BENTA — İMÇ Block 5, No: 5561, Istanbul</footer>
+  </main>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    const buttons = document.querySelectorAll('.filter');
+    const items = document.querySelectorAll('#archive details');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const type = btn.dataset.type;
+        items.forEach(item => {
+          item.style.display = (type === 'all' || item.dataset.type === type) ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
