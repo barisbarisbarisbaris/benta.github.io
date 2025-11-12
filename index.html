@@ -266,6 +266,44 @@
       }
     }
 
+    /* About section image reveal (same behavior as archive posts) */
+    .about-details {
+      border: none;
+      background: transparent;
+    }
+
+    .about-details summary {
+      cursor: pointer;
+      display: block;
+      list-style: none;
+      font-weight: normal;
+    }
+
+    .about-details::-webkit-details-marker {
+      display: none;
+    }
+
+    .about-details[open] summary {
+      margin-bottom: 8px; /* small spacing before the image */
+    }
+
+    .about-image {
+      margin-top: 6px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: auto;
+      max-width: 900px;
+      display: block;
+      margin-top: 6px;
+      padding-left: 10px;
+      border-left: 1px solid #000;  /* same as .note vertical line */
+      box-sizing: border-box;       /* ensure padding doesn’t break layout */
+    }
+
 
   </style>
 </head>
@@ -283,9 +321,16 @@
     <section id="about" class="row">
       <div class="label">About</div>
       <div class="content">
-        <strong>BENTA</strong> is a 35 m² independent, non-profit venue dedicated to visual arts, located in Istanbul.
-        Opened in September 2024, it serves as a platform for artists to present their work, with a focus
-        on experimental film, performance and visual arts.
+        <details class="about-details">
+          <summary>
+            <strong>BENTA</strong> is a 35 m² independent venue dedicated to visual arts, located in Istanbul.
+            Opened in September 2024, it serves as a platform for artists to present their work, with a focus
+            on experimental film, performance and visual arts.
+          </summary>
+          <div class="about-image">
+            <img src="media/benta-plan.png" alt="BENTA space view">
+          </div>
+        </details>
       </div>
     </section>
 
