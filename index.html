@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BENTA</title>
+  <title>BENTA - Istanbul</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     html {
@@ -12,7 +12,7 @@
       font-family: 'Times New Roman', Times, serif;
       font-size: 12px;      /* baseline */
       color: #111;
-      background-color: #e9e9e9;
+      background-color: #dbdbdb;
       line-height: 1.4;
       min-width: 340px;      
     }
@@ -83,7 +83,7 @@
       justify-content: center;
     }
     header img.logo {
-      width: 260px;
+      width: 500px;
       height: auto;
       display: block;
       margin: 10px 0 30px 0;
@@ -309,7 +309,7 @@
     #preloader {
       position: fixed;
       inset: 0;
-      background: #e9e9e9; /* match your site background exactly */
+      background: #dbdbdb; /* match your site background exactly */
       z-index: 9999;
       opacity: 1;
       transition: opacity 0.4s ease;
@@ -328,7 +328,7 @@
   <div id="preloader"></div>
   <main>
     <header>
-      <img src="media/benta-logo.png" alt="BENTA Logo" class="logo">
+      <img id="bentaLogo" src="media/benta_0001.png" alt="BENTA Logo" class="logo">
     </header>
 
     <!-- ABOUT -->
@@ -458,19 +458,138 @@
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
     });
-
-    const buttons = document.querySelectorAll('.filter');
-    const items = document.querySelectorAll('#archive details');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const type = btn.dataset.type;
-        items.forEach(item => {
-          item.style.display = (type === 'all' || item.dataset.type === type) ? 'block' : 'none';
-        });
-      });
-    });
   </script>
+
+  <script>
+  const logo     = document.getElementById("bentaLogo");
+  const pageBody = document.body;
+  const pageRoot = document.documentElement;
+
+  const originalBgColor = '#e9e9e9';  // base background
+  const activeBgColor   = '#ff00ff';  // pink background when animating forward
+
+  const activeFilterOriginalText = '#cbcbcb'; // matches your CSS
+  const activeFilterAnimText     = '#ff00ff'; // text color when BG is pink
+
+  const buttons = document.querySelectorAll('.filter');
+  const items   = document.querySelectorAll('#archive details');
+
+  const maxFrame = 15;
+  let currentFrame    = 1;
+  let isAnimating     = false;
+  let playForwardNext = true;   // true = 1→15, false = 15→1
+  const frameDuration = 50;
+  let bgIsActive      = false;  // true when BG is pink
+
+  // make sure <html> and <body> start with same background
+  pageBody.style.backgroundColor = originalBgColor;
+  pageRoot.style.backgroundColor = originalBgColor;
+
+  // --- helper: instantly sync active button text to current BG state ---
+  function syncActiveButtonColorInstant() {
+    const activeBtn = document.querySelector('button.filter.active');
+    if (!activeBtn) return;
+
+    const targetColor = bgIsActive
+      ? activeFilterAnimText      // BG pink
+      : activeFilterOriginalText; // BG grey
+
+    activeBtn.style.transition = '';   // no animation when changing tabs
+    activeBtn.style.color = targetColor;
+  }
+
+  // --- FILTER BUTTON LOGIC ---
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // reset all buttons
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.style.color = '';        // let CSS handle normal state
+        b.style.transition = '';   // remove any leftover transitions
+      });
+
+      // activate clicked button
+      btn.classList.add('active');
+
+      // filter archive items
+      const type = btn.dataset.type;
+      items.forEach(item => {
+        item.style.display =
+          (type === 'all' || item.dataset.type === type) ? 'block' : 'none';
+      });
+
+      // sync new active button text color to current BG state
+      syncActiveButtonColorInstant();
+    });
+  });
+
+  // --- BACKGROUND ANIMATION HELPERS ---
+  function setBackgroundTransition(duration) {
+    const t = `background-color ${duration}ms linear`;
+    pageBody.style.transition = t;
+    pageRoot.style.transition = t;
+  }
+
+  function setBackgroundColor(color) {
+    pageBody.style.backgroundColor = color;
+    pageRoot.style.backgroundColor = color;
+  }
+
+  // --- animate ONLY the active button text when logo is clicked ---
+  function animateActiveButtonColor(duration) {
+    const activeBtn = document.querySelector('button.filter.active');
+    if (!activeBtn) return;
+
+    const targetColor = bgIsActive
+      ? activeFilterAnimText
+      : activeFilterOriginalText;
+
+    activeBtn.style.transition = `color ${duration}ms linear`;
+    activeBtn.style.color = targetColor;
+  }
+
+  // --- LOGO CLICK ANIMATION ---
+  function playLogoAnimation() {
+    if (isAnimating) return; // ignore clicks while animating
+    isAnimating = true;
+
+    const start = playForwardNext ? 1 : maxFrame;
+    const end   = playForwardNext ? maxFrame : 1;
+    const step  = playForwardNext ? 1 : -1;
+
+    currentFrame = start;
+    logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+    const totalDuration = Math.abs(end - start) * frameDuration;
+
+    // animate BG
+    setBackgroundTransition(totalDuration);
+    if (playForwardNext) {
+      bgIsActive = true;
+      setBackgroundColor(activeBgColor);
+    } else {
+      bgIsActive = false;
+      setBackgroundColor(originalBgColor);
+    }
+
+    // animate ONLY current active button text color over same duration
+    animateActiveButtonColor(totalDuration);
+
+    // play frame sequence
+    const timer = setInterval(() => {
+      currentFrame += step;
+      logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+      if (currentFrame === end) {
+        clearInterval(timer);
+        isAnimating = false;
+        playForwardNext = !playForwardNext;
+      }
+    }, frameDuration);
+  }
+
+  logo.addEventListener('click', playLogoAnimation);
+</script>
+
 </body>
 </html>
