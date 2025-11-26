@@ -84,6 +84,7 @@
     }
     header img.logo {
       width: 500px;
+      max-width: 100%;    /* don’t overflow smaller screens */
       height: auto;
       display: block;
       margin: 10px 0 30px 0;
@@ -250,6 +251,10 @@
       .row {
         margin-bottom: 35px;   /* was 40px — tighter section gaps */
       }
+
+      header img.logo {
+        width: 450px;
+      }
     }
 
     @media (max-width: 600px) {
@@ -264,6 +269,10 @@
       .row {
         margin-bottom: 25px;   /* tighter vertical rhythm */
       }
+
+        header img.logo {
+          width: 400px;
+        }
     }
 
     /* About section image reveal (same behavior as archive posts) */
@@ -475,6 +484,18 @@
   const items   = document.querySelectorAll('#archive details');
 
   const maxFrame = 15;
+
+  // preload logo frames so first click is smooth
+  const logoFrames = [];
+  function preloadLogoFrames() {
+    for (let i = 1; i <= maxFrame; i++) {
+      const img = new Image();
+      img.src = `media/benta_${String(i).padStart(4, "0")}.png`;
+      logoFrames.push(img);
+    }
+  }
+  preloadLogoFrames();
+
   let currentFrame    = 1;
   let isAnimating     = false;
   let playForwardNext = true;   // true = 1→15, false = 15→1
