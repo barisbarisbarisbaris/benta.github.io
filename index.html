@@ -475,10 +475,10 @@
   const pageRoot = document.documentElement;
 
   const originalBgColor = '#e9e9e9';  // base background
-  const activeBgColor   = '#ff00ff';  // pink background when animating forward
+  const activeBgColor   = '#363636';  // pink background when animating forward
 
   const activeFilterOriginalText = '#cbcbcb'; // matches your CSS
-  const activeFilterAnimText     = '#ff00ff'; // text color when BG is pink
+  const activeFilterAnimText     = '#363636'; // text color when BG is pink
 
   const buttons = document.querySelectorAll('.filter');
   const items   = document.querySelectorAll('#archive details');
@@ -581,7 +581,7 @@
     currentFrame = start;
     logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
 
-    const totalDuration = Math.abs(end - start) * frameDuration;
+    const totalDuration = Math.abs(end - start) * frameDuration / 1.3;
 
     // animate BG
     setBackgroundTransition(totalDuration);
