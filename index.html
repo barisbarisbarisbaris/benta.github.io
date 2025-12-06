@@ -14,13 +14,25 @@
       color: #111;
       background-color: #FFFFFF;
       line-height: 1.4;
-      min-width: 340px;      
+      min-width: 340px;
+    }
+
+    :root {
+      --bg-color: #FFFFFF;
+      --text-color: #111111;
+      --btn-bg-color: #FFFFFF;
+      --btn-border-color: #000000;
+      --line-color: #000000;   /* NEW: used for all vertical lines */
     }
 
     body {
       margin: 0;
       padding: 0;
-      font-size: inherit;   /* <-- inherit from html */
+      font-size: inherit;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.7s linear, color 0.7s linear;
+      min-height: 100vh;    /* keep the black background covering full height */
     }
 
     /* Preloader */
@@ -44,6 +56,7 @@
     a, a:visited, a:active {
       color: #000;
       text-decoration: none;
+      transition: color 0.7s linear; /* fade link colors in dark mode */
     }
     a:hover {
       color: #000;
@@ -88,8 +101,8 @@
       height: auto;
       display: block;
       margin: 10px 0 30px 0;
+      transition: filter 0.7s linear;
     }
-
 
     .contact-table {
       display: flex;
@@ -154,12 +167,12 @@
       padding: 4px 8px;
       cursor: pointer;
       font-size: inherit;
+      transition: color 0.7s linear, border-color 0.7s linear, background-color 0.7s linear;
     }
     button.filter.active {
       background: #111;
-      color: #cbcbcb;
+      color: #ffffff;
     }
-
 
     /* Archive items */
     .archive-list {
@@ -171,7 +184,7 @@
       border: none;
       background: transparent;
     }
-    
+
     summary {
       display: flex;
       justify-content: space-between;
@@ -198,7 +211,12 @@
       white-space: pre-wrap;
       margin: 6px 0 10px 0;
       padding-left: 10px;
-      border-left: 1px solid #000000;
+      border-left: 1px solid var(--line-color);   /* CHANGED */
+      transition: border-left-color 0.7s linear; /* fade the line in dark mode */
+    }
+
+    body.dark-mode .note {
+      border-left-color: #FFFFFF;
     }
 
     #subscribe form {
@@ -214,14 +232,18 @@
       font-family: 'Times New Roman', Times, serif;
       font-size: inherit;
       padding: 3px 8px;
-      border: 1px solid #000;
+      border: 1px solid var(--btn-border-color);
       line-height: 1;
       height: 22px;
       box-sizing: border-box;
-      background-color: inherit;  /* match parent background */
-      color: inherit;             /* match text color */
-      appearance: none;           /* remove default browser style */
+      background-color: var(--btn-bg-color);
+      color: var(--text-color);
+      appearance: none;
+      transition: background-color 0.7s linear,
+                  border-color 0.7s linear,
+                  color 0.7s linear;
     }
+
 
     #subscribe input[type="email"]:focus {
       outline: none;
@@ -236,6 +258,7 @@
     footer {
       margin-top: 60px;
       color: #666;
+      transition: color 0.7s linear;
     }
 
     /* --- responsive font + spacing adjustments --- */
@@ -270,9 +293,9 @@
         margin-bottom: 25px;   /* tighter vertical rhythm */
       }
 
-        header img.logo {
-          width: 400px;
-        }
+      header img.logo {
+        width: 400px;
+      }
     }
 
     /* About section image reveal (same behavior as archive posts) */
@@ -308,17 +331,15 @@
       max-width: 900px;
       display: block;
       margin-top: 6px;
-      padding-left: 10px;
-      border-left: 1px solid #000;  /* same as .note vertical line */
-      box-sizing: border-box;       /* ensure padding doesn’t break layout */
+      box-sizing: border-box;
+      transition: filter 0.7s linear;  /* only the image inverts, line is on the wrapper */
     }
-
 
     /* Minimal blank preloader */
     #preloader {
       position: fixed;
       inset: 0;
-      background: #dbdbdb; /* match your site background exactly */
+      background: #ffffff; /* match your site background */
       z-index: 9999;
       opacity: 1;
       transition: opacity 0.4s ease;
@@ -329,6 +350,58 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    /* ---------- DARK MODE STATE (toggled by logo click) ---------- */
+
+    body.dark-mode {
+      --bg-color: #000000;
+      --text-color: #FFFFFF;
+      --btn-bg-color: #000000;
+      --btn-border-color: #FFFFFF;
+      --line-color: #FFFFFF;   /* NEW: lines turn white in dark mode */
+    }
+
+    body.dark-mode a,
+    body.dark-mode a:visited,
+    body.dark-mode a:active {
+      color: #FFFFFF;
+    }
+
+    body.dark-mode a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+
+    body.dark-mode header img.logo {
+      filter: invert(1) brightness(1.3);
+    }
+
+    body.dark-mode button.filter {
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+      background: transparent;
+    }
+
+    body.dark-mode button.filter.active {
+      background: #FFFFFF;
+      color: #000000;
+    }
+
+
+    body.dark-mode #subscribe button:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    body.dark-mode .about-image img {
+      border-left-color: #FFFFFF;         /* line becomes white in dark mode */
+      filter: invert(1) brightness(1.3);  /* keep the image effect */
+    }
+
+    body.dark-mode footer {
+      color: #AAAAAA;
+    }
+
+
 
   </style>
 </head>
@@ -350,9 +423,9 @@
             Opened in September 2024, it serves as a platform for artists to present their work, with a focus
             on experimental film, performance and exhibitions.
           </summary>
-          <div class="about-image">
-            <img src="media/benta-plan.png" alt="BENTA space view">
-          </div>
+            <div class="about-image note">
+              <img src="media/benta-plan.png" alt="BENTA space view">
+            </div>
         </details>
       </div>
     </section>
@@ -376,8 +449,6 @@
         <strong>˙◠˙</strong>
       </div>
     </section>
-    
-
 
     <!-- UPCOMING -->
     <section id="upcoming" class="row">
@@ -463,154 +534,100 @@
     <footer>© 2025 BENTA — İMÇ Block 5, No: 5561, Istanbul</footer>
   </main>
 
+  <!-- Preloader done → show main -->
   <script>
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
     });
   </script>
 
+  <!-- Filters + Logo click: dark-mode + frame animation -->
   <script>
-  const logo     = document.getElementById("bentaLogo");
-  const pageBody = document.body;
-  const pageRoot = document.documentElement;
+    // FILTER BUTTON LOGIC
+    const filterButtons = document.querySelectorAll('.filter');
+    const archiveItems  = document.querySelectorAll('#archive details');
 
-  const originalBgColor = '#FFFFFF';  // base background
-  const activeBgColor   = '#595959';  // pink background when animating forward
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
 
-  const activeFilterOriginalText = '#cbcbcb'; // matches your CSS
-  const activeFilterAnimText     = '#595959'; // text color when BG is pink
+        // Temporarily disable transitions so the selected button color changes instantly
+        filterButtons.forEach(b => {
+          b.style.transition = 'none';
+        });
 
-  const buttons = document.querySelectorAll('.filter');
-  const items   = document.querySelectorAll('#archive details');
+        // update active state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-  const maxFrame = 15;
+        // filter items
+        archiveItems.forEach(item => {
+          if (type === 'all' || item.dataset.type === type) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
 
-  // preload logo frames so first click is smooth
-  const logoFrames = [];
-  function preloadLogoFrames() {
+        // Restore transitions on next frame so dark-mode toggles still animate smoothly
+        requestAnimationFrame(() => {
+          filterButtons.forEach(b => {
+            b.style.transition = '';
+          });
+        });
+      });
+    });
+
+    // LOGO ANIMATION + DARK MODE
+    const logo = document.getElementById("bentaLogo");
+    const body = document.body;
+
+    const maxFrame = 15;
+    let currentFrame = 1;
+    let isAnimating = false;
+    let playForwardNext = true; // true: 1→15, false: 15→1
+    const frameDuration = 45;   // ms per frame (~0.7s total)
+
+    // Preload frames for smooth first click
+    const logoFrames = [];
     for (let i = 1; i <= maxFrame; i++) {
       const img = new Image();
       img.src = `media/benta_${String(i).padStart(4, "0")}.png`;
       logoFrames.push(img);
     }
-  }
-  preloadLogoFrames();
 
-  let currentFrame    = 1;
-  let isAnimating     = false;
-  let playForwardNext = true;   // true = 1→15, false = 15→1
-  const frameDuration = 40;
-  let bgIsActive      = false;  // true when BG is pink
+    function playLogoAnimation() {
+      if (isAnimating) return;
+      isAnimating = true;
 
-  // make sure <html> and <body> start with same background
-  pageBody.style.backgroundColor = originalBgColor;
-  pageRoot.style.backgroundColor = originalBgColor;
+      // toggle dark mode for BG + text + logo filter
+      if (playForwardNext) {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.remove("dark-mode");
+      }
 
-  // --- helper: instantly sync active button text to current BG state ---
-  function syncActiveButtonColorInstant() {
-    const activeBtn = document.querySelector('button.filter.active');
-    if (!activeBtn) return;
+      const start = playForwardNext ? 1 : maxFrame;
+      const end   = playForwardNext ? maxFrame : 1;
+      const step  = playForwardNext ? 1 : -1;
 
-    const targetColor = bgIsActive
-      ? activeFilterAnimText      // BG pink
-      : activeFilterOriginalText; // BG grey
-
-    activeBtn.style.transition = '';   // no animation when changing tabs
-    activeBtn.style.color = targetColor;
-  }
-
-  // --- FILTER BUTTON LOGIC ---
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // reset all buttons
-      buttons.forEach(b => {
-        b.classList.remove('active');
-        b.style.color = '';        // let CSS handle normal state
-        b.style.transition = '';   // remove any leftover transitions
-      });
-
-      // activate clicked button
-      btn.classList.add('active');
-
-      // filter archive items
-      const type = btn.dataset.type;
-      items.forEach(item => {
-        item.style.display =
-          (type === 'all' || item.dataset.type === type) ? 'block' : 'none';
-      });
-
-      // sync new active button text color to current BG state
-      syncActiveButtonColorInstant();
-    });
-  });
-
-  // --- BACKGROUND ANIMATION HELPERS ---
-  function setBackgroundTransition(duration) {
-    const t = `background-color ${duration}ms linear`;
-    pageBody.style.transition = t;
-    pageRoot.style.transition = t;
-  }
-
-  function setBackgroundColor(color) {
-    pageBody.style.backgroundColor = color;
-    pageRoot.style.backgroundColor = color;
-  }
-
-  // --- animate ONLY the active button text when logo is clicked ---
-  function animateActiveButtonColor(duration) {
-    const activeBtn = document.querySelector('button.filter.active');
-    if (!activeBtn) return;
-
-    const targetColor = bgIsActive
-      ? activeFilterAnimText
-      : activeFilterOriginalText;
-
-    activeBtn.style.transition = `color ${duration}ms linear`;
-    activeBtn.style.color = targetColor;
-  }
-
-  // --- LOGO CLICK ANIMATION ---
-  function playLogoAnimation() {
-    if (isAnimating) return; // ignore clicks while animating
-    isAnimating = true;
-
-    const start = playForwardNext ? 1 : maxFrame;
-    const end   = playForwardNext ? maxFrame : 1;
-    const step  = playForwardNext ? 1 : -1;
-
-    currentFrame = start;
-    logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
-
-    const totalDuration = Math.abs(end - start) * frameDuration / 1.3;
-
-    // animate BG
-    setBackgroundTransition(totalDuration);
-    if (playForwardNext) {
-      bgIsActive = true;
-      setBackgroundColor(activeBgColor);
-    } else {
-      bgIsActive = false;
-      setBackgroundColor(originalBgColor);
-    }
-
-    // animate ONLY current active button text color over same duration
-    animateActiveButtonColor(totalDuration);
-
-    // play frame sequence
-    const timer = setInterval(() => {
-      currentFrame += step;
+      currentFrame = start;
       logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
 
-      if (currentFrame === end) {
-        clearInterval(timer);
-        isAnimating = false;
-        playForwardNext = !playForwardNext;
-      }
-    }, frameDuration);
-  }
+      const timer = setInterval(() => {
+        currentFrame += step;
+        logo.src = `media/benta_${String(currentFrame).padStart(4, "0")}.png`;
 
-  logo.addEventListener('click', playLogoAnimation);
-</script>
+        if (currentFrame === end) {
+          clearInterval(timer);
+          isAnimating = false;
+          playForwardNext = !playForwardNext;
+        }
+      }, frameDuration);
+    }
+
+    logo.addEventListener('click', playLogoAnimation);
+  </script>
 
 </body>
 </html>
