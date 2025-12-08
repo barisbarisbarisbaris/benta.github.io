@@ -370,6 +370,44 @@
       opacity: 1;
     }
 
+    /* Upcoming section poster reveal (same behavior as About / Archive) */
+    .upcoming-details {
+      border: none;
+      background: transparent;
+    }
+
+    .upcoming-details summary {
+      cursor: pointer;
+      display: block;
+      list-style: none;
+      font-weight: normal;
+    }
+
+    .upcoming-details::-webkit-details-marker {
+      display: none;
+    }
+
+    .upcoming-details[open] summary {
+      margin-bottom: 2px; /* small gap before the poster line */
+    }
+
+    /* Poster image inside the note */
+
+    /* Poster block inside the Upcoming details */
+    .upcoming-poster {
+      margin: 2 !important;          /* removes outer spacing */
+      padding-top: 0 !important;     /* removes internal vertical padding */
+      padding-bottom: 0 !important;  /* removes internal vertical padding */
+      line-height: 0.3 !important;     /* removes text-descender vertical gap */
+    }
+
+    /* Poster image scaling */
+    .upcoming-poster img {
+      display: block;
+      width: 50%;   /* or 60%, 50% – tweak as you like */
+      height: auto;
+    }
+
 
     /* Minimal blank preloader */
     #preloader {
@@ -491,8 +529,17 @@
     <section id="upcoming" class="row">
       <div class="label">Upcoming</div>
       <div class="content">
-        <strong>ARZ EDERİM</strong> by <strong>DENİZ KULAKSIZOĞLU</strong><br>
-        <strong>Opening:</strong> Friday, 19 December 2025
+        <details class="upcoming-details">
+          <summary>
+            <strong>ARZ EDERİM</strong> by <strong>DENİZ KULAKSIZOĞLU</strong><br>
+            <strong>Opening:</strong> Friday, 19 December 2025
+          </summary>
+
+          <!-- This is the “popup” with the left line -->
+          <div class="note upcoming-poster">
+            <img src="media/exhibition_poster_arzederim.png" alt="ARZ EDERİM poster">
+          </div>
+        </details>
       </div>
     </section>
 
