@@ -95,13 +95,19 @@
       display: flex;
       justify-content: center;
     }
+
     header img.logo {
       width: 500px;
-      max-width: 100%;    /* don’t overflow smaller screens */
+      max-width: 100%;
       height: auto;
       display: block;
       margin: 10px 0 30px 0;
-      transition: filter 0.7s linear;
+      filter: none;                 /* force no filter */
+      transition: none;             /* we don't animate any filter anymore */
+    }
+
+    body.dark-mode header img.logo {
+      filter: none !important;      /* make sure nothing inverts / tints the logo */
     }
 
     .contact-table {
