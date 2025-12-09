@@ -104,6 +104,10 @@
       margin: 10px 0 30px 0;
       filter: none;                 /* force no filter */
       transition: none;             /* we don't animate any filter anymore */
+
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-drag: none;
     }
 
     body.dark-mode header img.logo {
@@ -197,6 +201,7 @@
       align-items: baseline;
       list-style: none;
       overflow: visible;           /* allow full text width */
+      cursor: pointer;
     }
     summary::-webkit-details-marker {
       display: none;
@@ -350,16 +355,24 @@
       display: block;
     }
 
-    /* default: light visible, dark hidden */
     .about-img-light {
       opacity: 1;
+    }
+
+    /* Dark (white) image for black background */
+    .about-img-dark {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ✱ Only animate opacity when body has .plan-animate ✱ */
+    body.plan-animate .about-img-light,
+    body.plan-animate .about-img-dark {
       transition: opacity 0.7s linear;
     }
 
-    .about-img-dark {
-      opacity: 0;
-      transition: opacity 0.7s linear;
-    }
 
     /* when dark mode is active, fade between them */
     body.dark-mode .about-img-light {
@@ -466,7 +479,12 @@
       color: #AAAAAA;
     }
 
-
+    #bentaLogo,
+    #bentaLogo * {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
 
   </style>
 </head>
@@ -592,7 +610,7 @@
       <div class="content contact-table">
         <div class="row-line">
           <div class="left">Address:</div>
-          <div class="right">İMÇ, BLOCK 5, No: 5561, Hacı Kadın Mahallesi, Atatürk Bulvarı, Fatih, ISTANBUL, Post Code: 34080</div>
+          <div class="right"><a href="https://maps.app.goo.gl/8LzbBvnhFJuen5jy8">İMÇ, BLOCK 5, No: 5561, Hacı Kadın Mahallesi, Atatürk Bulvarı, Fatih, ISTANBUL, Post Code: 34080</a></div>
         </div>
         <div class="row-line">
           <div class="left">Email:</div>
@@ -608,7 +626,7 @@
     <!-- MAILING LIST -->
     <section id="subscribe" class="row">
       <div class="label">Newsletter</div>
-      <form class="content" action="https://formspree.io/f/xjkjvogo" method="POST">
+      <form class="content" action="https://formspree.io/f/xjkjvogo" method="POST" target="_blank">
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required>
         <button type="submit">Subscribe</button>
@@ -684,11 +702,18 @@
       if (isAnimating) return;
       isAnimating = true;
 
-      // toggle dark mode for BG + text + logo filter
-      if (playForwardNext) {
-        body.classList.add("dark-mode");
+      // ✱ Enable plan fade animation just for this toggle ✱
+      body.classList.add('plan-animate');
+      setTimeout(() => {
+        body.classList.remove('plan-animate');
+      }, 800); // a bit longer than 0.7s transition
+
+      // toggle dark-mode
+      const willBeDark = !body.classList.contains('dark-mode');
+      if (willBeDark) {
+        body.classList.add('dark-mode');
       } else {
-        body.classList.remove("dark-mode");
+        body.classList.remove('dark-mode');
       }
 
       const start = playForwardNext ? 1 : maxFrame;
@@ -709,6 +734,7 @@
         }
       }, frameDuration);
     }
+
 
     logo.addEventListener('click', playLogoAnimation);
   </script>
