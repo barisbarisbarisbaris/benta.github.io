@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Timeline Calendar 2025–2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --text-main: #222222;
+      --text-muted: #777777;
+      --border-soft: #e0e0e5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 12px 40px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .calendar-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+
+    .subtitle {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .legend-color {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .year-label {
+      margin: 10px 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .months {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .month {
+      background: var(--card-bg);
+      border-radius: 9px;
+      padding: 12px 14px 16px;
+      box-shadow: 0 10px 25px rgba(15,15,25,0.06);
+      border: 1px solid var(--border-soft);
+    }
+
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .month-name {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .month-year {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.16em;
+    }
+
+    .weekday-row,
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      column-gap: 4px;
+    }
+
+    .weekday-row {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
+    }
+
+    .weekday {
+      text-align: center;
+      padding: 2px 0;
+    }
+
+    .day-grid {
+      row-gap: 4px;
+      font-size: 11px;
+    }
+
+    .day {
+      position: relative;
+      min-height: 28px;
+      padding: 3px 0 2px;
+      text-align: center;
+    }
+
+    .day.empty {
+      pointer-events: none;
+    }
+
+    .day-number {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    .day-has-event .day-number {
+      background: rgba(0,0,0,0.06);
+    }
+
+    /* today ring */
+    .day-today .day-number {
+      border: 1px solid #000000;
+      border-radius: 999px;
+      background: transparent !important;
+    }
+
+    .event-stripe-container {
+      position: absolute;
+      inset-inline: 4px;
+      bottom: 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: stretch;
+      z-index: 1;
+    }
+
+    .event-stripe {
+      height: 4px;
+      border-radius: 999px;
+    }
+
+    @media (max-width: 600px) {
+      body { padding-inline: 8px; }
+      .month { padding-inline: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-wrapper">
+    <h1>BENTA Timeline 2025–2026</h1>
+    <div class="subtitle">
+    </div>
+
+    <div class="legend" id="legend"></div>
+    <div class="months" id="months"></div>
+  </div>
+
+  <script>
+    /************ CONFIG ************/
+    var calendarConfig = {
+      start: "2025-12-01",   // inclusive
+      end:   "2026-12-31"    // inclusive
+    };
+
+    // Add/remove events here.
+    var events = [
+      {
+        label: "DENIZ KULAKSIZOGLU",
+        color: "#4e63ff",
+        start: "2025-12-19",
+        end:   "2026-01-24"
+      },
+      {
+        label: "ELIF YALIM",
+        color: "#e15ddb",
+        start: "2026-02-13",
+        end:   "2026-03-21"
+      },
+      {
+        label: "ECE YALÇIN",
+        color: "#5d36e7",
+        start: "2026-04-03",
+        end:   "2026-05-02"
+      },
+      {
+        label: "S.A. MAYER",
+        color: "#f26b5b",
+        start: "2026-05-15",
+        end:   "2026-06-27"
+      },
+      {
+        label: "VID KOPRIVSEK",
+        color: "#f0b846",
+        start: "2026-07-10",
+        end:   "2026-08-15"
+      },
+      {
+        label: "GUSTAF HOLTENAS",
+        color: "#5b88d6",
+        start: "2026-09-04",
+        end:   "2026-10-10"
+      }
+      // Example:
+      // {
+      //   label: "NEW ARTIST",
+      //   color: "blue",
+      //   start: "2026-01-20",
+      //   end:   "2026-02-20"
+      // }
+    ];
+
+    /************ UTILITIES ************/
+    function parseISODate(str) {
+      var parts = str.split("-");
+      return new Date(
+        parseInt(parts[0], 10),
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[2], 10)
+      );
+    }
+
+    function formatKey(d) {
+      var y = d.getFullYear();
+      var m = String(d.getMonth() + 1);
+      var day = String(d.getDate());
+      if (m.length === 1) m = "0" + m;
+      if (day.length === 1) day = "0" + day;
+      return y + "-" + m + "-" + day;
+    }
+
+    // Monday=0 ... Sunday=6
+    function mondayBasedWeekday(d) {
+      var jsDay = d.getDay(); // Sun=0..Sat=6
+      return (jsDay + 6) % 7;
+    }
+
+    function daysInMonth(year, monthIndex) {
+      return new Date(year, monthIndex + 1, 0).getDate();
+    }
+
+    function generateMonthList(config) {
+      var startDate = parseISODate(config.start);
+      var endDate   = parseISODate(config.end);
+      var months = [];
+
+      var cur = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+      var endMarker = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+
+      while (cur <= endMarker) {
+        months.push({ year: cur.getFullYear(), monthIndex: cur.getMonth() });
+        cur.setMonth(cur.getMonth() + 1);
+      }
+      return months;
+    }
+
+    function buildEventMap(events, config) {
+      var map = {};
+      var calStart = parseISODate(config.start);
+      var calEnd   = parseISODate(config.end);
+
+      for (var i = 0; i < events.length; i++) {
+        var ev = events[i];
+        var start = parseISODate(ev.start);
+        var end   = parseISODate(ev.end);
+
+        if (end < calStart || start > calEnd) {
+          continue; // completely outside
+        }
+
+        var from = start < calStart ? calStart : start;
+        var to   = end   > calEnd   ? calEnd   : end;
+
+        var d = new Date(from.getTime());
+        while (d <= to) {
+          var key = formatKey(d);
+          if (!map[key]) map[key] = [];
+          map[key].push(ev);
+          d.setDate(d.getDate() + 1);
+        }
+      }
+      return map;
+    }
+
+    function monthName(idx) {
+      var names = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+      ];
+      return names[idx];
+    }
+
+    /************ RENDERING ************/
+    function renderLegend() {
+      var legendEl = document.getElementById("legend");
+      legendEl.innerHTML = "";
+
+      var seen = {}; // label -> color
+
+      for (var i = 0; i < events.length; i++) {
+        var ev = events[i];
+        if (!ev.label) continue;
+        if (!seen[ev.label]) {
+          seen[ev.label] = ev.color;
+        }
+      }
+
+      for (var label in seen) {
+        if (!seen.hasOwnProperty(label)) continue;
+        var color = seen[label];
+
+        var item = document.createElement("div");
+        item.className = "legend-item";
+
+        var swatch = document.createElement("span");
+        swatch.className = "legend-color";
+        swatch.style.backgroundColor = color;
+
+        var text = document.createElement("span");
+        text.textContent = label;
+
+        item.appendChild(swatch);
+        item.appendChild(text);
+        legendEl.appendChild(item);
+      }
+    }
+
+    function renderCalendar() {
+      var monthsEl = document.getElementById("months");
+      monthsEl.innerHTML = "";
+
+      var eventMap = buildEventMap(events, calendarConfig);
+      var months   = generateMonthList(calendarConfig);
+      var weekdays = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+      // current date key for today ring
+      var todayKey = formatKey(new Date());
+
+      var lastYearRendered = null;
+
+      for (var m = 0; m < months.length; m++) {
+        var info = months[m];
+        var year = info.year;
+        var monthIndex = info.monthIndex;
+
+        // Year heading before first month of each year
+        if (year !== lastYearRendered) {
+          var yearLabel = document.createElement("div");
+          yearLabel.className = "year-label";
+          yearLabel.textContent = String(year);
+          monthsEl.appendChild(yearLabel);
+          lastYearRendered = year;
+        }
+
+        var monthEl = document.createElement("section");
+        monthEl.className = "month";
+
+        // header
+        var header = document.createElement("div");
+        header.className = "month-header";
+
+        var nameEl = document.createElement("div");
+        nameEl.className = "month-name";
+        nameEl.textContent = monthName(monthIndex);
+
+        var yearEl = document.createElement("div");
+        yearEl.className = "month-year";
+        yearEl.textContent = String(year);
+
+        header.appendChild(nameEl);
+        header.appendChild(yearEl);
+        monthEl.appendChild(header);
+
+        // weekday row
+        var weekdayRow = document.createElement("div");
+        weekdayRow.className = "weekday-row";
+        for (var w = 0; w < weekdays.length; w++) {
+          var wd = document.createElement("div");
+          wd.className = "weekday";
+          wd.textContent = weekdays[w];
+          weekdayRow.appendChild(wd);
+        }
+        monthEl.appendChild(weekdayRow);
+
+        // day grid
+        var grid = document.createElement("div");
+        grid.className = "day-grid";
+
+        var firstOfMonth = new Date(year, monthIndex, 1);
+        var offset = mondayBasedWeekday(firstOfMonth);
+        var totalDays = daysInMonth(year, monthIndex);
+
+        // empty slots before day 1
+        for (var e = 0; e < offset; e++) {
+          var empty = document.createElement("div");
+          empty.className = "day empty";
+          grid.appendChild(empty);
+        }
+
+        // real days
+        for (var day = 1; day <= totalDays; day++) {
+          var date = new Date(year, monthIndex, day);
+          var key  = formatKey(date);
+
+          var dayEl = document.createElement("div");
+          dayEl.className = "day";
+
+          var num = document.createElement("div");
+          num.className = "day-number";
+          num.textContent = String(day);
+          dayEl.appendChild(num);
+
+          // mark today with ring
+          if (key === todayKey) {
+            dayEl.classList.add("day-today");
+          }
+
+          var dayEvents = eventMap[key] || [];
+          if (dayEvents.length > 0) {
+            dayEl.classList.add("day-has-event");
+
+            var stripeContainer = document.createElement("div");
+            stripeContainer.className = "event-stripe-container";
+
+            // show up to 3 stripes per day
+            for (var s = 0; s < dayEvents.length && s < 3; s++) {
+              var ev = dayEvents[s];
+              var stripe = document.createElement("div");
+              stripe.className = "event-stripe";
+              stripe.style.backgroundColor = ev.color;
+              stripeContainer.appendChild(stripe);
+            }
+
+            dayEl.appendChild(stripeContainer);
+          }
+
+          grid.appendChild(dayEl);
+        }
+
+        monthEl.appendChild(grid);
+        monthsEl.appendChild(monthEl);
+      }
+    }
+
+    /************ INIT ************/
+    document.addEventListener("DOMContentLoaded", function () {
+      renderLegend();
+      renderCalendar();
+    });
+  </script>
+</body>
+</html>
