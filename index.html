@@ -348,7 +348,12 @@
     }
 
     .about-details[open] summary {
-      margin-bottom: 2px; /* small spacing before the image */
+      margin-bottom: 0; /* no gap just because details is open */
+    }
+
+    /* Add spacing ONLY if the image block exists right after summary */
+    .about-details[open] summary + .about-image {
+      margin-top: 2px;
     }
 
     .about-image {
@@ -399,6 +404,54 @@
       opacity: 1;
     }
 
+    /* Current section poster reveal (same behavior as Upcoming) */
+    .current-details {
+      border: none;
+      background: transparent;
+    }
+
+    .current-details summary {
+      cursor: pointer;
+      display: block;
+      list-style: none;
+      font-weight: normal;
+    }
+
+    .current-details::-webkit-details-marker {
+      display: none;
+    }
+
+    .current-details[open] summary {
+      margin-bottom: 0;
+    }
+
+    /* Add spacing ONLY if a poster exists right after summary */
+    .current-details[open] summary + .current-poster {
+      margin-top: 2px;
+    }
+
+    .current-poster {
+      margin: 2 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      line-height: 0.3 !important;
+    }
+
+    .current-poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Match your responsive widths used by upcoming-poster */
+    @media (min-width: 600px) {
+      .current-poster { width: 50%; }
+    }
+    @media (max-width: 600px) {
+      .current-poster { width: 90%; }
+}
+
+
     /* Upcoming section poster reveal (same behavior as About / Archive) */
     .upcoming-details {
       border: none;
@@ -417,7 +470,12 @@
     }
 
     .upcoming-details[open] summary {
-      margin-bottom: 2px; /* small gap before the poster line */
+      margin-bottom: 0; /* no gap just because details is open */
+    }
+
+    /* Add spacing ONLY if a poster exists right after summary */
+    .upcoming-details[open] summary + .upcoming-poster {
+      margin-top: 2px;
     }
 
     /* Poster image inside the note */
@@ -541,23 +599,38 @@
 
     <!-- CURRENT ON-->
     <!--
+    -->
+    <!-- CURRENT -->
     <section id="current" class="row">
       <div class="label">Current</div>
       <div class="content">
-        <strong>STARFISH DECAY</strong> by <strong>BORA AKINCITÜRK</strong><br>
-        <strong>Dates:</strong> September 19 – November 14, 2025<br>
-        <strong>Hours:</strong> Monday to Saturday, 10:00 – 18:00
+        <details class="current-details">
+          <summary>
+            <strong>ARZ EDERİM</strong> by <strong>DENİZ KULAKSIZOĞLU</strong><br>
+            <strong>Dates:</strong> December 19, 2025 – January 24, 2026<br>
+            <strong>Hours:</strong> Monday to Saturday, 10:00 – 18:00
+          </summary>
+
+          <!-- This is the “popup” with the left line -->
+          <div class="note upcoming-poster">
+            <img src="media/exhibition_poster_arzederim.png" alt="ARZ EDERİM poster">
+          </div>
+
+        </details>
       </div>
     </section>
-    -->
+
+
 
     <!-- CURRENT NOTHING-->
+    <!--
     <section id="current" class="row">
       <div class="label">Current</div>
       <div class="content">
         <strong>˙◠˙</strong>
       </div>
     </section>
+    -->
 
     <!-- UPCOMING -->
     <section id="upcoming" class="row">
@@ -565,15 +638,10 @@
       <div class="content">
         <details class="upcoming-details">
           <summary>
-            <strong>ARZ EDERİM</strong> by <strong>DENİZ KULAKSIZOĞLU</strong><br>
-            <strong>Opening:</strong> Friday, 19 December 2025
+            <strong>ELİF YALIM</strong><br>
+            Details TBA
           </summary>
 
-          <!-- This is the “popup” with the left line -->
-          <div class="note upcoming-poster">
-            <img src="media/exhibition_poster_arzederim.png" alt="ARZ EDERİM poster">
-          </div>
-        </details>
       </div>
     </section>
 
