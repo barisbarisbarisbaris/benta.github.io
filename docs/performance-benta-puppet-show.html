@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BENTA — PUPPET SHOW documentation</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+
+  <style>
+    /* Shared baseline (mirrors index.html behavior) */
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12px;
+      color: #111;
+      background-color: #FFFFFF;
+      line-height: 1.4;
+      min-width: 340px;
+    }
+
+    :root {
+      --bg-color: #FFFFFF;
+      --text-color: #111111;
+      --btn-bg-color: #FFFFFF;
+      --btn-border-color: #000000;
+      --line-color: #000000;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: inherit;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.55s linear, color 0.55s linear;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      --bg-color: #000000;
+      --text-color: #FFFFFF;
+      --btn-bg-color: #000000;
+      --btn-border-color: #FFFFFF;
+      --line-color: #FFFFFF;
+    }
+
+        body.dark-mode footer {
+          color: #AAAAAA;
+        }
+
+    footer {
+      margin-top: 60px;
+      color: #666;
+      transition: color 0.7s linear;
+    }
+
+    a, a:visited, a:active {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.7s linear;
+    }
+    a:hover { text-decoration: underline; }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    header img.logo {
+      width: 500px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px 0 30px 0;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      user-select: none;
+-webkit-user-drag: none;
+    }
+
+    .doc-title {
+      margin: 0 0 16px 0;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Scrollable stack of images */
+    .doc-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .doc-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .back-wrap {
+      margin: 12px 0 10px 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 4px 8px;
+      border: 1px solid var(--btn-border-color);
+      background: var(--btn-bg-color);
+      color: var(--text-color);
+      font-family: 'Times New Roman', Times, serif;
+      transition: background-color 0.55s linear, color 0.55s linear, border-color 0.55s linear;
+    }
+    .back-btn:hover { text-decoration: none; }
+
+    @media (max-width: 800px) {
+      html { font-size: 10px; }
+      header img.logo { width: 450px; }
+    }
+    @media (max-width: 600px) {
+      html { font-size: 9px; }
+      header img.logo { width: 400px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <img id="bentaLogo" src="../media/benta_0001.png" alt="BENTA Logo" class="logo" draggable="false">
+    </header>
+
+     <div class="back-wrap">
+      <a class="back-btn" id="backBtn" href="../index.html">← back to main page</a>
+    </div>
+
+    <p class="doc-title"><strong>Benta - Puppet Show 1</strong></p>
+
+        <p class="doc-title">
+        
+        Febuary 4-7, 2026<br><br>
+        Open Call 72 Hour Puppet Workshop and Performance<br><br><br>
+        Puppet Shows:<br><br>
+        “Yine mi kuir”<br>
+        Disidentification Joy & Kerem Eyüboğlu<br><br>
+
+        “Gece Aşığı”<br>
+        Ece Şam & Gülen Çelik<br><br>
+
+        “Mc Donald’s Önünde Elektrik Panosunda”<br>
+        Goko Haydut200 & Zoumée Star Planet<br><br>
+
+        “pırpır”<br>
+        Melagro<br><br>
+
+        “kayıp dj’ler”<br>
+        Okan Urun & Ata Öner<br><br><br>
+        Fabric Manufacturing: Mete Aksu<br><br>
+        Assistance: Nurettin İlik<br><br>
+        Backstage Coordınation: Efe Can Erdal<br><br>
+        Sound and Light: Nurettin İlik & Sude Çulha
+
+
+
+      </p>
+
+    <section class="doc-gallery" id="docGallery"></section>
+
+
+    <div class="back-wrap">
+      <a class="back-btn" id="backBtn" href="../index.html">← back to main page</a>
+    </div>
+
+     <footer>© 2026 BENTA — İMÇ Block 5, No: 5561, Istanbul</footer>
+  </main>
+
+  <script>
+    // --- Restore UI state (dark mode + logo frame) ---
+    const logo = document.getElementById("bentaLogo");
+    const body = document.body;
+
+    const maxFrame = 15;
+    let currentFrame = 1;
+    let isAnimating = false;
+    let playForwardNext = true; // true: 1→15, false: 15→1
+    const frameDuration = 45;
+
+    // preload frames (doc page uses ../media/)
+    const logoFrames = [];
+    for (let i = 1; i <= maxFrame; i++) {
+      const img = new Image();
+      img.src = `../media/benta_${String(i).padStart(4, "0")}.png`;
+      logoFrames.push(img);
+    }
+
+    (function restoreUiState() {
+      const isDark = localStorage.getItem('benta_dark') === '1';
+      const dir = localStorage.getItem('benta_frame_dir'); // 'fwd' or 'rev'
+      if (isDark) body.classList.add('dark-mode');
+
+      const frame = parseInt(localStorage.getItem('benta_frame_current') || '1', 10);
+      currentFrame = Number.isFinite(frame) ? Math.min(Math.max(frame, 1), maxFrame) : 1;
+      logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+      if (dir === 'fwd') playForwardNext = true;
+      if (dir === 'rev') playForwardNext = false;
+    })();
+
+    function saveUiState() {
+      localStorage.setItem('benta_dark', body.classList.contains('dark-mode') ? '1' : '0');
+      localStorage.setItem('benta_frame_dir', playForwardNext ? 'fwd' : 'rev');
+      localStorage.setItem('benta_frame_current', String(currentFrame));
+    }
+
+    // --- Same logo click behavior (toggle dark mode + animate frames) ---
+    function playLogoAnimation() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // toggle dark-mode
+      const willBeDark = !body.classList.contains('dark-mode');
+      if (willBeDark) body.classList.add('dark-mode');
+      else body.classList.remove('dark-mode');
+      saveUiState();
+
+      const start = playForwardNext ? 1 : maxFrame;
+      const end   = playForwardNext ? maxFrame : 1;
+      const step  = playForwardNext ? 1 : -1;
+
+      currentFrame = start;
+      logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+      const timer = setInterval(() => {
+        currentFrame += step;
+        logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+        if (currentFrame === end) {
+          clearInterval(timer);
+          isAnimating = false;
+          playForwardNext = !playForwardNext;
+          saveUiState();
+        }
+      }, frameDuration);
+    }
+
+    logo.addEventListener('click', playLogoAnimation);
+
+    // Save state when going back
+    document.getElementById('backBtn').addEventListener('click', saveUiState);
+
+    // --- Documentation images (stacked + scroll) ---
+    // Put your images in: /media/docs/performance-benta-puppet-show/
+    // Example filenames: 01.jpg, 02.jpg, 03.jpg ... (or png/webp)
+    // Then list them here:
+    const images = [
+      "../media/docs/performance-benta-puppet-show/01.jpg",
+      "../media/docs/performance-benta-puppet-show/02.jpg",
+      "../media/docs/performance-benta-puppet-show/03.jpg",
+      "../media/docs/performance-benta-puppet-show/04.jpg",
+      "../media/docs/performance-benta-puppet-show/05.jpg",
+      "../media/docs/performance-benta-puppet-show/06.jpg",
+      "../media/docs/performance-benta-puppet-show/07.jpg",
+      "../media/docs/performance-benta-puppet-show/08.jpg",
+      "../media/docs/performance-benta-puppet-show/09.jpg",
+      "../media/docs/performance-benta-puppet-show/10.jpg",
+      "../media/docs/performance-benta-puppet-show/11.jpg",
+      "../media/docs/performance-benta-puppet-show/12.jpg",
+      "../media/docs/performance-benta-puppet-show/13.jpg",
+      "../media/docs/performance-benta-puppet-show/14.jpg"
+   
+
+
+  
+    
+    
+      
+    
+    ];
+
+    const gallery = document.getElementById("docGallery");
+    images.forEach(src => {
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = src;
+      img.alt = "Documentation image";
+      gallery.appendChild(img);
+    });
+  </script>
+</body>
+</html>

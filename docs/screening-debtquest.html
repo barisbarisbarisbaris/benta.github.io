@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BENTA — Debtquest documentation</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+
+  <style>
+    /* Shared baseline (mirrors index.html behavior) */
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12px;
+      color: #111;
+      background-color: #FFFFFF;
+      line-height: 1.4;
+      min-width: 340px;
+    }
+
+    :root {
+      --bg-color: #FFFFFF;
+      --text-color: #111111;
+      --btn-bg-color: #FFFFFF;
+      --btn-border-color: #000000;
+      --line-color: #000000;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-size: inherit;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.55s linear, color 0.55s linear;
+      min-height: 100vh;
+    }
+
+    body.dark-mode {
+      --bg-color: #000000;
+      --text-color: #FFFFFF;
+      --btn-bg-color: #000000;
+      --btn-border-color: #FFFFFF;
+      --line-color: #FFFFFF;
+    }
+
+        body.dark-mode footer {
+          color: #AAAAAA;
+        }
+
+    footer {
+      margin-top: 60px;
+      color: #666;
+      transition: color 0.7s linear;
+    }
+
+    a, a:visited, a:active {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.7s linear;
+    }
+    a:hover { text-decoration: underline; }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    header img.logo {
+      width: 500px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px 0 30px 0;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      user-select: none;
+-webkit-user-drag: none;
+    }
+
+    .doc-title {
+      margin: 0 0 16px 0;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Scrollable stack of images */
+    .doc-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .doc-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+  .doc-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .doc-caption {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+    .back-wrap {
+      margin: 12px 0 10px 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 4px 8px;
+      border: 1px solid var(--btn-border-color);
+      background: var(--btn-bg-color);
+      color: var(--text-color);
+      font-family: 'Times New Roman', Times, serif;
+      transition: background-color 0.55s linear, color 0.55s linear, border-color 0.55s linear;
+    }
+    .back-btn:hover { text-decoration: none; }
+
+    @media (max-width: 800px) {
+      html { font-size: 10px; }
+      header img.logo { width: 450px; }
+    }
+    @media (max-width: 600px) {
+      html { font-size: 9px; }
+      header img.logo { width: 400px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <img id="bentaLogo" src="../media/benta_0001.png" alt="BENTA Logo" class="logo" draggable="false">
+    </header>
+
+    <div class="back-wrap">
+      <a class="back-btn" id="backBtn" href="../index.html">← back to main page</a>
+    </div>
+
+    <p class="doc-title"><strong>Debt Quest - Hellavision Television Network Presents</strong></p>
+
+            
+
+
+        <p class="doc-title">
+        
+        October 18 - 19, 2024<br><br>
+        DEBT QUEST is an animated action-adventure RPG created by Lije Morgan. It is a hybrid Story / Open Call episode of Hellavision Television, featuring contributions from various animators. The plot follows a party embarking on a journey to distant worlds, slaying enemies and paying off their debts along the way.
+        <br><br>
+        An in-person screening was held in Istanbul at BENTA on October 18th and 19th, alongside screenings in Atlanta, New York City, Los Angeles, London, Toronto, Minneapolis and Chicago.<br>
+        </p>
+
+        <section class="doc-gallery" id="docGallery"></section>
+
+        <p class="doc-title">
+        <br>
+        TIME UNKNOWN - PETER STEINECK<br>
+        MEET CLOVER - DAVID MELLOR <br>
+        CLOVER'S STUFF - ALEX FUTTERSAK AKA CHIPPY <br> 
+        CLOVER LEAVES - KARSAN HAVAL<br>
+        CROSSROADS OF FATE - LEWIS TARVER<br>  
+        PRINTER - ROMAN MURADOV<br>  
+        SAND WELL - ZACK DRESHER<br>  
+        EDGE OF MURDER FOREST - CAMERON MCMANUS<br>  
+        MURDER FOREST LOADING SCREEN - KOHANA WILSON<br>  
+        MURDER FOREST FLORA & FAUNA - LILA BURNS<br>  
+        WEIRD FOREST CREEPY DUMPSTER - MICHAEL YELTON<br>  
+        THREE LITTLE GUYS - JACEY CHEN<br>  
+        GOBLINS IN LUV - STUART KIMBALL<br>  
+        CLOVER DANCE FOR PUMPKIN - DANE CREE<br>  
+        SPEAKEASY - NICHOLAS RALABATE<br>  
+        CRULMN ENCOUNTER - SEAN CONCANNON<br>  
+        IT CAME OUT OF THE FIVE LEGGED ELEPHANT - MICHAEL COSTELLO<br>  
+        RANDOM ENCOUNTER - KYLE KNAPP<br>  
+        GABBA JACK IN THE MURDER FOREST - WOODLIN LATOCKI<br>  
+        A THORN IN HER SIDE - ADAM LOPEZ<br>  
+        GROUT - LEX MCCLINTIC<br>  
+        THIELESBIAN NOIR - MAYA RENEA<br>  
+        LASERDISC SIDEQUEST - TAYLOR GUNTHARP<br>  
+        CRIMSON & CLOVER - EMALIE TISON<br>  
+        THE OLDEST TREE - TUCKER WOOLEY<br>  
+        GREGGY AND THE BOOK - MICHAEL BEACHY<br>  
+        LOST IN MURDER FOREST - NICK SYLVESTER<br>  
+        MURDER FOREST - LIJE MORGAN<br>  
+        THE TANGLED TITAN: PHASE 1 - HAMISH MCCALLION<br>  
+        THE TANGLED TITAN: PHASE 2 - ALEX HICKEY<br>  
+        WEST BEACH - LAURA JAYNE<br>  
+        THE EERIE ISLES LOADING SCREEN - ELENOR KOPKA<br>  
+        CRUSTACEAN KEEP - LIAM ARCHIBALD<br>  
+        ÞE EERI ISLES - SOPHIE ASH<br>  
+        CATCH OF THE DAY - TAHARKA BARAKA<br>  
+        CRAB TALK - AUSTIN BRENNAN<br>  
+        BOOM - CAMILO AGUIRRE<br>  
+        CAPTAIN SQUEAKS FINDS EERIE ISLES - FRANCIS AMISOLA<br>  
+        WIZARD GUY - JOHNATHAN CLAIR<br>  
+        ROLEPLAY AS A HAMSTER - JEM FISHWICK<br>  
+        ELEPHANTÉ - MADOT GIRMA<br>  
+        CHOOSE_YOUR_PLAYER - JACLYN HARRIS<br>  
+        MOLD MAN ENCOUNTER - GARRETT JAEGER<br>  
+        $400 STEEL - JAMES<br>  
+        AN EGGHEAD'S LAMENT - MICHELLE PEREA<br>  
+        SIDE QUEST: MAKE A NEW FRIEND - WOLLYMIGHT<br>  
+        CRUSTY WHITE DOG VS. MEAN GAY SUN + MOON - KAYLA RASK<br>  
+        SLIMPIE - ALINE SANTOS<br>  
+        ONLY EYES FOR YOU. - EDWARD CASTLE<br>  
+        GAME DEVELOPER GOT BURNT OUT AND LET HIS COMPUTER GET INFECTED - JAY WHANG<br>  
+        GREG - ELIZA YOUNG<br>  
+        LOADING SCREEN SLEEPOVER - MADDY HAYNES<br>  
+        THE COLOSSAL CRUSTACEAN: PHASE 1 - SAM WOOD<br>  
+        THE COLOSSAL CRUSTACEAN: PHASE 2 - MAGDA KREPS<br>  
+        DARK CLOUDY SKIES - EMMA MORA<br>  
+        THE TOWER OF PAIN LOADING SCREEN - DAVID DELAFUENTE<br>  
+        MICHELLE OF HOUSE PFEIFFER STUNS IN NEW PHISHING CAMPAIGN - ROSCOE BERNARD<br>  
+        MILLENNIAL GRINDSET CRINGE - DAN ANTHONY KELLY<br>  
+        PONTIACG6 - BILLY BUDGEN<br>  
+        UWU THE DARK WITCH - LILY BERG<br>  
+        CRITICAL HIT - SISHIR BOMMAKANTI<br>  
+        THE TOWER OF PAIN HOTEL - JOHN CORSI<br>  
+        DUCK DUCK SLAY DUCK - ERIN CURRIE<br>  
+        MUPPET QUEST - DOMINICK GREEN<br>  
+        JUST CLOWN THINGS - ERIK HEATHCOTE<br>  
+        A SWEET SURPRISE - LINDA VOIGT<br>  
+        TOAD ALL DISASTER - MADELINE WILLIAMS<br>  
+        EMERALD SWORD - SIERRA ROZARIO<br>  
+        THE MOST TERRIBLE AFFLICTION - MATT MAJOR<br>  
+        LOADINGW3 - ANDY COTTON<br>  
+        PAIN PARTY - EMILY CURRAN<br>  
+        TOP OF THE TOWER - ARIUS ZIAEE<br>  
+        THE SNATCHER: PHASE 1 - MICHAEL VAN SWEARINGEN<br>  
+        THE SNATCHER: PHASE 2 - CH4CH<br>  
+        INTRODUCING: THE BUG KING - PARKER DAVIS<br>  
+        THE BUG KING: PHASE 1 - DANIEL DUBOULAY<br>  
+        THE BUG KING: PHASE 2 - JULIANNE WABER<br> 
+        THE BUG KING, DEFEATED - KATE COSTELLO<br>  
+        CLOVER'S HOUSE AGAIN - STAS PODGORNOV<br>
+    </p>
+
+
+    <div class="back-wrap">
+      <a class="back-btn" id="backBtn" href="../index.html">← back to main page</a>
+    </div>
+
+     <footer>© 2026 BENTA — İMÇ Block 5, No: 5561, Istanbul</footer>
+  </main>
+
+  <script>
+    // --- Restore UI state (dark mode + logo frame) ---
+    const logo = document.getElementById("bentaLogo");
+    const body = document.body;
+
+    const maxFrame = 15;
+    let currentFrame = 1;
+    let isAnimating = false;
+    let playForwardNext = true; // true: 1→15, false: 15→1
+    const frameDuration = 45;
+
+    // preload frames (doc page uses ../media/)
+    const logoFrames = [];
+    for (let i = 1; i <= maxFrame; i++) {
+      const img = new Image();
+      img.src = `../media/benta_${String(i).padStart(4, "0")}.png`;
+      logoFrames.push(img);
+    }
+
+    (function restoreUiState() {
+      const isDark = localStorage.getItem('benta_dark') === '1';
+      const dir = localStorage.getItem('benta_frame_dir'); // 'fwd' or 'rev'
+      if (isDark) body.classList.add('dark-mode');
+
+      const frame = parseInt(localStorage.getItem('benta_frame_current') || '1', 10);
+      currentFrame = Number.isFinite(frame) ? Math.min(Math.max(frame, 1), maxFrame) : 1;
+      logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+      if (dir === 'fwd') playForwardNext = true;
+      if (dir === 'rev') playForwardNext = false;
+    })();
+
+    function saveUiState() {
+      localStorage.setItem('benta_dark', body.classList.contains('dark-mode') ? '1' : '0');
+      localStorage.setItem('benta_frame_dir', playForwardNext ? 'fwd' : 'rev');
+      localStorage.setItem('benta_frame_current', String(currentFrame));
+    }
+
+    // --- Same logo click behavior (toggle dark mode + animate frames) ---
+    function playLogoAnimation() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // toggle dark-mode
+      const willBeDark = !body.classList.contains('dark-mode');
+      if (willBeDark) body.classList.add('dark-mode');
+      else body.classList.remove('dark-mode');
+      saveUiState();
+
+      const start = playForwardNext ? 1 : maxFrame;
+      const end   = playForwardNext ? maxFrame : 1;
+      const step  = playForwardNext ? 1 : -1;
+
+      currentFrame = start;
+      logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+      const timer = setInterval(() => {
+        currentFrame += step;
+        logo.src = `../media/benta_${String(currentFrame).padStart(4, "0")}.png`;
+
+        if (currentFrame === end) {
+          clearInterval(timer);
+          isAnimating = false;
+          playForwardNext = !playForwardNext;
+          saveUiState();
+        }
+      }, frameDuration);
+    }
+
+    logo.addEventListener('click', playLogoAnimation);
+
+    // Save state when going back
+    document.getElementById('backBtn').addEventListener('click', saveUiState);
+
+    // --- Documentation images (stacked + scroll) ---
+    // Put your images in: /media/docs/evim-yuva/
+    // Example filenames: 01.jpg, 02.jpg, 03.jpg ... (or png/webp)
+    // Then list them here:
+    
+    const items = [
+      {
+        src: "../media/docs/screening-debtquest/01.jpg",
+        caption: ""
+      }     
+    ];
+
+    const gallery = document.getElementById("docGallery");
+
+    items.forEach(item => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "doc-item";
+
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = item.src;
+      img.alt = item.caption || "Documentation image";
+
+      const caption = document.createElement("div");
+      caption.className = "doc-caption";
+      caption.textContent = item.caption;
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(caption);
+      gallery.appendChild(wrapper);
+    });
+
+
+  </script>
+</body>
+</html>
